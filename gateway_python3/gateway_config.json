@@ -1,0 +1,16 @@
+{
+    "mqtt_server": "13.229.70.147",
+    "mqtt_port": 1883,
+    "subscribe_topic": [
+        "motor/turn"
+    ],
+    "publish_topic": {
+        "S": "sensors/soil",
+        "T": "sensors/temperature",
+        "H": "sensors/humidity",
+        "L": "sensors/lux",
+        "NOTIFY": "motor/state"
+    },
+    "lora_port": "/dev/tty/USB0",
+    "lora_baudrate": 9600
+}
