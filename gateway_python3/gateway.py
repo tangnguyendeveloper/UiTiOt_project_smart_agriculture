@@ -83,9 +83,12 @@ async def process_data() -> None:
 
 
 async def loop_func() -> None:
-    task_lora_connect = asyncio.create_task(lora.loop_forever())
-    task_mqtt_connect = asyncio.create_task(mqtt.connect_to_broker_forever())
-    task_process_data = asyncio.create_task(process_data())
+
+    loop = asyncio.get_event_loop()
+
+    task_lora_connect = loop.create_task(lora.loop_forever())
+    task_mqtt_connect = loop.create_task(mqtt.connect_to_broker_forever())
+    task_process_data = loop.create_task(process_data())
 
     await task_lora_connect
     await task_mqtt_connect
