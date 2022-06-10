@@ -82,7 +82,7 @@ async def process_data() -> None:
         print("PROCESS DATA ERROR", str(e))
 
 
-async def loop() -> None:
+async def loop_func() -> None:
     task_lora_connect = asyncio.create_task(lora.loop_forever())
     task_mqtt_connect = asyncio.create_task(mqtt.connect_to_broker_forever())
     task_process_data = asyncio.create_task(process_data())
@@ -96,4 +96,4 @@ if __name__ == "__main__":
     
     loop = asyncio.get_event_loop()
     setup()
-    loop.run_until_complete(loop())
+    loop.run_until_complete(loop_func())
