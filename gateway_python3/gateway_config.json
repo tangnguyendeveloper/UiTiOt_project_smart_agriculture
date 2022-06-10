@@ -11,6 +11,6 @@
         "L": "sensors/lux",
         "NOTIFY": "motor/state"
     },
-    "lora_port": "/dev/tty/USB0",
+    "lora_port": "/dev/ttyUSB0",
     "lora_baudrate": 9600
 }
