@@ -98,6 +98,6 @@ async def loop_func() -> None:
 
 if __name__ == "__main__":
     
-    loop = asyncio.new_event_loop()
+    loop = asyncio.get_event_loop()
     setup()
     loop.run_until_complete(loop_func())

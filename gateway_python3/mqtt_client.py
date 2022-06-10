@@ -55,7 +55,7 @@ class MQTTClient:
 
     async def connect_to_broker_forever(self):
         print("connect_to_broker_forever")
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
         self.__client.connect(self.__server_name, self.__port, 60)
         await loop.create_task(self.mqtt_loop())
 
