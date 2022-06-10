@@ -53,7 +53,7 @@ class MQTTClient:
         self.__client.loop_forever()
 
 
-    def publish(self, topic: str, value: str | int | float):
+    def publish(self, topic: str, value: str):
         try:
             dictionary = {}
             key = topic.split("/")[-1]
@@ -65,4 +65,28 @@ class MQTTClient:
         except Exception as e:
             print("PUBLISH ERROR!", str(e))
 
+    def publish(self, topic: str, value: int):
+        try:
+            dictionary = {}
+            key = topic.split("/")[-1]
+            dictionary[key] = value
+            json_object = json.dumps(dictionary)
+
+            publish.single(topic, json_object, hostname=self.__server_name, port=self.__port)
+            print("Publish", json_object, "to", self.__server_name)
+        except Exception as e:
+            print("PUBLISH ERROR!", str(e))
+
+
+    def publish(self, topic: str, value: float):
+        try:
+            dictionary = {}
+            key = topic.split("/")[-1]
+            dictionary[key] = value
+            json_object = json.dumps(dictionary)
+
+            publish.single(topic, json_object, hostname=self.__server_name, port=self.__port)
+            print("Publish", json_object, "to", self.__server_name)
+        except Exception as e:
+            print("PUBLISH ERROR!", str(e))
 
