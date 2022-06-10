@@ -3,7 +3,7 @@ import serial
 import asyncio
 
 class LoRa:
-    def __init__(self, uart_port: str, baudrate: int = 115200) -> None:
+    def __init__(self, uart_port: str, baudrate: int = 115200):
         self.__serial = serial.Serial(
             port=uart_port,
             baudrate=baudrate, timeout=1
@@ -13,7 +13,7 @@ class LoRa:
         self.__queu_receive = []
 
 
-    def __del__(self) -> None:
+    def __del__(self):
         self.__serial.close()
         self.__queu_receive.clear()
         self.__queue_send.clear()
@@ -28,18 +28,18 @@ class LoRa:
 
 
     @property
-    def pop_from_queu_receive(self) -> str | None:
+    def pop_from_queu_receive(self) -> str:
         if not self.__queu_receive:
-            return None
+            return ""
         return self.__queu_receive.pop(0)
 
 
-    def push_to_queue_send(self, msg: str) -> None:
+    def push_to_queue_send(self, msg: str):
         if msg != "":
             self.__queue_send.append(msg)
 
 
-    async def loop_forever(self) -> None:
+    async def loop_forever(self):
 
         print("---| LoRa Gateway run on |---")
         print(platform.system(), platform.architecture())

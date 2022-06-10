@@ -4,12 +4,12 @@ import json
 
 
 class TopPic:
-    def __init__(self) -> None:
+    def __init__(self):
         self.__topic_subscribe = []
         self.__topic_publish = {}
 
 
-    def __del__(self) -> None:
+    def __del__(self):
         self.__topic_publish.clear()
         self.__topic_subscribe.clear()
     
@@ -25,35 +25,35 @@ class TopPic:
 
 
     @topic_subscribe.setter
-    def topic_subscribe(self, list_topic: list) -> None:
+    def topic_subscribe(self, list_topic: list):
         self.__topic_subscribe = list_topic
     
 
     @topic_publish.setter
-    def topic_publish(self, dict_topic: dict) -> None:
+    def topic_publish(self, dict_topic: dict):
         self.__topic_publish = dict_topic
 
 
 
 
 class MQTTClient:
-    def __init__(self, server_name: str, port: int = 1883) -> None:
+    def __init__(self, server_name: str, port: int = 1883):
         self.__server_name = server_name
         self.__port = port
         self.__client = mqtt.Client()
 
 
-    def set_callbacks(self, on_connect, on_message) -> None:
+    def set_callbacks(self, on_connect, on_message):
         self.__client.on_connect = on_connect
         self.__client.on_message = on_message
 
 
-    async def connect_to_broker_forever(self) -> None:
+    async def connect_to_broker_forever(self):
         self.__client.connect(self.__server_name, self.__port, 60)
         self.__client.loop_forever()
 
 
-    def publish(self, topic: str, value: str | int | float) -> None:
+    def publish(self, topic: str, value: str | int | float):
         try:
             dictionary = {}
             key = topic.split("/")[-1]

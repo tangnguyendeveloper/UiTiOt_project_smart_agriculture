@@ -73,7 +73,7 @@ async def process_data() -> None:
     try:
         while True:
             msg = lora.pop_from_queu_receive
-            if msg != None:
+            if msg != "":
                 msg = msg.split("|")
                 await publish_message(msg)
             await asyncio.sleep(0.1)
