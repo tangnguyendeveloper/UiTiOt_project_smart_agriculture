@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 import json
+import asyncio
 
 
 class TopPic:
@@ -48,10 +49,15 @@ class MQTTClient:
         self.__client.on_message = on_message
 
 
+    async def mqtt_loop(self):
+        self.__client.loop_forever()
+
+
     async def connect_to_broker_forever(self):
         print("connect_to_broker_forever")
+        loop = asyncio.get_event_loop()
         self.__client.connect(self.__server_name, self.__port, 60)
-        self.__client.loop_forever()
+        await loop.create_task(self.mqtt_loop())
 
 
     def publish(self, topic: str, value: str):
