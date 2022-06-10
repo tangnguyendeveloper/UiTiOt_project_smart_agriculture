@@ -69,7 +69,7 @@ async def publish_message(msg: list) -> None:
 
 async def process_data() -> None:
     msg = ""
-
+    print("process_data")
     try:
         while True:
             msg = lora.pop_from_queu_receive

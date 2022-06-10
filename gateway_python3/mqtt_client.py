@@ -49,6 +49,7 @@ class MQTTClient:
 
 
     async def connect_to_broker_forever(self):
+        print("connect_to_broker_forever")
         self.__client.connect(self.__server_name, self.__port, 60)
         self.__client.loop_forever()
 
