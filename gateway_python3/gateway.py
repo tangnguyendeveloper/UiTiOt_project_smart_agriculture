@@ -88,8 +88,9 @@ async def loop_func() -> None:
     task_process_data = asyncio.create_task(process_data())
 
     await task_lora_connect
-    await task_mqtt_connect
     await task_process_data
+    await task_mqtt_connect
+    
 
 
 if __name__ == "__main__":
