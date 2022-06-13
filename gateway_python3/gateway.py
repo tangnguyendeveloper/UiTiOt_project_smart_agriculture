@@ -2,6 +2,7 @@ import json
 from lora import LoRa
 from mqtt_client import MQTTClient, TopPic
 import asyncio
+import threading
 
 lora = None
 mqtt = None
@@ -85,13 +86,14 @@ async def process_data() -> None:
 async def loop_func() -> None:
 
     loop = asyncio.get_event_loop()
+    
+    mqtt_connrction = threading.Thread(target=mqtt.connect_to_broker_forever)
+    mqtt_connrction.start()
 
     task_lora_connect = loop.create_task(lora.loop_forever())
-    task_mqtt_connect = loop.create_task(mqtt.connect_to_broker_forever())
     task_process_data = loop.create_task(process_data())
 
     await task_lora_connect
-    await task_mqtt_connect
     await task_process_data
     
 
