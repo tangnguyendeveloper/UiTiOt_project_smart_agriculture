@@ -3,6 +3,9 @@ from lora import LoRa
 from mqtt_client import MQTTClient, TopPic
 import asyncio
 import threading
+import RPi.GPIO as GPIO
+
+RELAIS_1_GPIO = 17
 
 lora = None
 mqtt = None
@@ -25,9 +28,11 @@ def on_message(client, userdata, msg):
     try:
         if msg.payload == b"1":
             lora.push_to_queue_send("motor|1\n")
+            GPIO.output(RELAIS_1_GPIO, GPIO.LOW)
             mqtt.publish(topic_ls.topic_publish["NOTIFY"], 1)
         if msg.payload == b"0":
             lora.push_to_queue_send("motor|0\n")
+            GPIO.output(RELAIS_1_GPIO, GPIO.HIGH)
             mqtt.publish(topic_ls.topic_publish["NOTIFY"], 0)
 
     except Exception as e:
@@ -43,6 +48,9 @@ def load_configure() -> dict:
 
 def setup() -> None:
     global lora, mqtt, topic_ls
+
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(RELAIS_1_GPIO, GPIO.OUT)
 
     js_conf = load_configure()
 
